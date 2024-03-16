@@ -45,6 +45,19 @@ namespace CalulatorChallengeUnittest
         }
 
         [TestMethod]
+        public void Add_MoreThanTwoNumbers_ReturnsSum()
+        {
+            // Arrange
+            string input = "1,2,3,4,5,6,7,8,9,10,11,12";
+
+            // Act
+            int result = Calculator.Add(input);
+
+            // Assert
+            Assert.AreEqual(78, result);
+        }
+
+        [TestMethod]
         public void Add_TwoNegativeNumbers_ReturnsSum()
         {
             // Arrange
@@ -57,15 +70,6 @@ namespace CalulatorChallengeUnittest
             Assert.AreEqual(1, result);
         }
 
-        [TestMethod]
-        public void Add_MoreThanTwoNumbers_ThrowsException()
-        {
-            // Arrange
-            string input = "1,2,3";
-
-            // Act & Assert
-            Assert.ThrowsException<ArgumentException>(() => Calculator.Add(input));
-        }
 
         [TestMethod]
         public void Add_InvalidInput_ReturnsZero()

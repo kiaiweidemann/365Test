@@ -24,9 +24,6 @@ namespace CalculatorTest
 
             string[] numbers = input.Split(',');
 
-            if (numbers.Length > 2)
-                throw new ArgumentException("I said only 2 numbers.");
-
             int sum = 0;
             foreach (string num in numbers)
             {
