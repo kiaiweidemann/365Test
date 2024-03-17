@@ -13,8 +13,8 @@ namespace CalculatorTest
     {
         /*
          * Here is our one addition operation. it takes
-         * on string and can handle string with 0-2 numbers
-         * separated by ','. 
+         * on string and can handle string with numbers
+         * separated by ',' or \n. 
          */
 
         public static int Add(string input)
@@ -22,7 +22,7 @@ namespace CalculatorTest
             if (string.IsNullOrEmpty(input))
                 return 0;
 
-            string[] numbers = input.Split(',');
+            string[] numbers = input.Split(',','\n');
 
             int sum = 0;
             foreach (string num in numbers)
