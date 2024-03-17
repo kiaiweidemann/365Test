@@ -35,7 +35,7 @@ namespace CalulatorChallengeUnittest
         public void Add_TwoNumbers_ReturnsSum()
         {
             // Arrange
-            string input = "1,5000";
+            string input = "1\n5000";
 
             // Act
             int result = Calculator.Add(input);
@@ -48,7 +48,7 @@ namespace CalulatorChallengeUnittest
         public void Add_MoreThanTwoNumbers_ReturnsSum()
         {
             // Arrange
-            string input = "1,2,3,4,5,6,7,8,9,10,11,12";
+            string input = "1,2,3,4,5,6,7,8,9,10,11\n12";
 
             // Act
             int result = Calculator.Add(input);
