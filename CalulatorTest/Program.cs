@@ -14,7 +14,10 @@ namespace CalculatorTest
         /*
          * Here is our one addition operation. it takes
          * on string and can handle string with numbers
-         * separated by ',' or \n. 
+         * separated by ',' or \n.
+         * 
+         * Important Note: Negative number are now tabboo
+         * 
          */
 
         public static int Add(string input)
@@ -24,11 +27,22 @@ namespace CalculatorTest
 
             string[] numbers = input.Split(',','\n');
 
+            List<int> negatives = new List<int>();
             int sum = 0;
             foreach (string num in numbers)
             {
                 if (int.TryParse(num, out int parsedNum))
-                    sum += parsedNum;
+                {
+                    if (parsedNum < 0)
+                        negatives.Add(parsedNum);
+                    else
+                        sum += parsedNum;
+                }
+            }
+
+            if (negatives.Count > 0)
+            {
+                throw new ArgumentException("We no longer allow those negatives: " + string.Join(",", negatives));
             }
 
             return sum;

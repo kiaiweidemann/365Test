@@ -58,16 +58,13 @@ namespace CalulatorChallengeUnittest
         }
 
         [TestMethod]
-        public void Add_TwoNegativeNumbers_ReturnsSum()
+        public void Add_NegativeNumbers_ThrowsExceptionWithNegatives()
         {
             // Arrange
-            string input = "4,-3";
+            string input = "4\n-3,-12,4,-6";
 
-            // Act
-            int result = Calculator.Add(input);
-
-            // Assert
-            Assert.AreEqual(1, result);
+            // Act & Assert
+            Assert.ThrowsException<ArgumentException>(() => Calculator.Add(input));
         }
 
 
