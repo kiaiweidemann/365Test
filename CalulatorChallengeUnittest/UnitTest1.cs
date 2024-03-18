@@ -35,13 +35,13 @@ namespace CalulatorChallengeUnittest
         public void Add_TwoNumbers_ReturnsSum()
         {
             // Arrange
-            string input = "1\n5000";
+            string input = "1\n5";
 
             // Act
             int result = Calculator.Add(input);
 
             // Assert
-            Assert.AreEqual(5001, result);
+            Assert.AreEqual(6, result);
         }
 
         [TestMethod]
@@ -80,5 +80,32 @@ namespace CalulatorChallengeUnittest
             // Assert
             Assert.AreEqual(5, result);
         }
+
+        [TestMethod]
+        public void Add_NumbersGreaterThan1000_AreIgnored()
+        {
+            // Arrange
+            string input = "5,1001,4";
+
+            // Act
+            int result = Calculator.Add(input);
+
+            // Assert
+            Assert.AreEqual(9, result);
+        }
+
+        [TestMethod]
+        public void Add_CustomDelimiter_ReturnsSum()
+        {
+            // Arrange
+            string input = "//#\n2#5";
+
+            // Act
+            int result = Calculator.Add(input);
+
+            // Assert
+            Assert.AreEqual(7, result);
+        }
+
     }
 }
