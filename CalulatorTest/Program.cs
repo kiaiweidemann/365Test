@@ -16,9 +16,10 @@ namespace CalculatorTest
          * Here is our one addition operation. it takes
          * on string and can handle string with numbers
          * separated by ',' or \n. and you can define a custom
-         * single character delimiter with this format
-         * 
-         * 
+         * single character delimiter or a multicharacter 
+         * delimiter with these two formats: 
+         *  //{delimiter}\n{numbers}
+         *  //[{delimiter}]\n{numbers}
          * Important Note: Negative number are now tabboo
          * 
          */
@@ -27,18 +28,30 @@ namespace CalculatorTest
         {
             if (string.IsNullOrEmpty(input))
                 return 0;
-            // find custom delimiter
-            char customDelimiter = ',';
-            string[] parts = input.Split('\n');
+            //try first method
+            string pattern = @"^//(.)\n(.*)$";
+            Match match = Regex.Match(input, pattern);
 
-            if (parts[0].StartsWith("//"))
-            {
-                customDelimiter = char.Parse(parts[0].Substring(2,1)); // Extract delimiter
-                input = input.Substring(4);
+            string customDelimiter = ",";
+            string numbersStr = input;
+
+            if (match.Success)
+            {  //try the first mesthod first
+                customDelimiter = match.Groups[1].Value;
+                numbersStr = match.Groups[2].Value;
+            }
+            else
+            {   //try the second method
+                pattern = @"^//\[([\s\S]+)\]\n(.*)$";
+                match = Regex.Match(input, pattern);
+                if (match.Success)
+                { 
+                    customDelimiter = match.Groups[1].Value;
+                    numbersStr = match.Groups[2].Value;
+                }
             }
 
-
-            string[] numbers = input.Split(',', '\n',customDelimiter);
+            string[] numbers = numbersStr.Split(new string[] {",", "\x0A", customDelimiter},StringSplitOptions.RemoveEmptyEntries);
 
             List<int> negatives = new List<int>();
             int sum = 0;

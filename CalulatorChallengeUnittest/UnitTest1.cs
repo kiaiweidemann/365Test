@@ -107,5 +107,18 @@ namespace CalulatorChallengeUnittest
             Assert.AreEqual(7, result);
         }
 
+        [TestMethod]
+        public void Add_MultipleCustomDelimiters_ReturnsSum()
+        {
+            // Arrange
+            string input = "//[***]\n11***22***33";
+
+            // Act
+            int result = Calculator.Add(input);
+
+            // Assert
+            Assert.AreEqual(66, result);
+        }
+
     }
 }
