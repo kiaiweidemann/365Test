@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
 
 namespace CalculatorTest
@@ -28,30 +29,46 @@ namespace CalculatorTest
         {
             if (string.IsNullOrEmpty(input))
                 return 0;
-            //try first method
+         
+            List<string> delimiters = new List<string>();
+            //string customDelimiter = ",";
+            string numbersStr = input;
+
+            //try first method customer delimiter method //{delimiter}\n{numbers}
             string pattern = @"^//(.)\n(.*)$";
             Match match = Regex.Match(input, pattern);
 
-            string customDelimiter = ",";
-            string numbersStr = input;
-
             if (match.Success)
-            {  //try the first mesthod first
-                customDelimiter = match.Groups[1].Value;
+            {  
+                delimiters.Add(match.Groups[1].Value);
                 numbersStr = match.Groups[2].Value;
             }
-            else
-            {   //try the second method
-                pattern = @"^//\[([\s\S]+)\]\n(.*)$";
+
+            //try 2nd/3rd method customer delimiter method 
+            //  //[{delimiter}]\n{numbers}
+            //  //[{delimiter1}][{delimiter2}]...\n{numbers}
+            if (numbersStr.Equals(input))
+            {
+                pattern = @"^//((?:\[.*?\])+)\n(.*)$";
                 match = Regex.Match(input, pattern);
                 if (match.Success)
-                { 
-                    customDelimiter = match.Groups[1].Value;
+                {
+                    string delimiterString = match.Groups[1].Value;
                     numbersStr = match.Groups[2].Value;
+
+                    //let's get all those delimiters
+                    delimiters = Regex.Matches(delimiterString, @"\[(.*?)\]")
+                        .Cast<Match>()
+                        .Select(m => m.Groups[1].Value)
+                        .ToList();
                 }
             }
 
-            string[] numbers = numbersStr.Split(new string[] {",", "\x0A", customDelimiter},StringSplitOptions.RemoveEmptyEntries);
+            //add the defaults to the list
+            delimiters.Add(",");
+            delimiters.Add("\x0A");
+
+            string[] numbers = numbersStr.Split(delimiters.ToArray(),StringSplitOptions.RemoveEmptyEntries);
 
             List<int> negatives = new List<int>();
             int sum = 0;
