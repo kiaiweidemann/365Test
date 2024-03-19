@@ -25,11 +25,13 @@ namespace CalculatorTest
          * 
          */
 
-        public static int Add(string input)
+        public static string Add(string input)
         {
             if (string.IsNullOrEmpty(input))
-                return 0;
+                return "0 = 0";
          
+
+            List<string> formulaParts = new List<string>();
             List<string> delimiters = new List<string>();
             //string customDelimiter = ",";
             string numbersStr = input;
@@ -79,15 +81,23 @@ namespace CalculatorTest
                     if (parsedNum < 0)
                         negatives.Add(parsedNum);
                     else if (parsedNum <= 1000) // Ignore numbers greater than 1000
+                    {
                         sum += parsedNum;
+                        formulaParts.Add(parsedNum.ToString());
+                    }
+                    else
+                        formulaParts.Add("0");
                 }
+                else
+                    formulaParts.Add("0");
             }
             if (negatives.Count > 0)
             {
                 throw new ArgumentException("We no longer allow those negatives: " + string.Join(",", negatives));
             }
 
-            return sum;
+            string formula = string.Join(" + ", formulaParts) + " = " + sum;
+            return formula;
         }
 
     }
@@ -103,7 +113,7 @@ namespace CalculatorTest
             {
                 Console.WriteLine("Enter numbers separated by commas:");
                 string input = Console.ReadLine();
-                int result = Calculator.Add(input);
+                string result = Calculator.Add(input);
                 Console.WriteLine("Result: " + result);
             }
             catch (ArgumentException ex)

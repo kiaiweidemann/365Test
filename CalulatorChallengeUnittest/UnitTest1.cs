@@ -12,10 +12,10 @@ namespace CalulatorChallengeUnittest
             string input = "";
 
             // Act
-            int result = Calculator.Add(input);
+            string result = Calculator.Add(input);
 
             // Assert
-            Assert.AreEqual(0, result);
+            Assert.AreEqual("0 = 0", result);
         }
 
         [TestMethod]
@@ -25,10 +25,10 @@ namespace CalulatorChallengeUnittest
             string input = "20";
 
             // Act
-            int result = Calculator.Add(input);
+            string result = Calculator.Add(input);
 
             // Assert
-            Assert.AreEqual(20, result);
+            Assert.AreEqual("20 = 20", result);
         }
 
         [TestMethod]
@@ -38,10 +38,10 @@ namespace CalulatorChallengeUnittest
             string input = "1\n5";
 
             // Act
-            int result = Calculator.Add(input);
+            string result = Calculator.Add(input);
 
             // Assert
-            Assert.AreEqual(6, result);
+            Assert.AreEqual("1 + 5 = 6", result);
         }
 
         [TestMethod]
@@ -51,10 +51,10 @@ namespace CalulatorChallengeUnittest
             string input = "1,2,3,4,5,6,7,8,9,10,11\n12";
 
             // Act
-            int result = Calculator.Add(input);
+            string result = Calculator.Add(input);
 
             // Assert
-            Assert.AreEqual(78, result);
+            Assert.AreEqual("1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12 = 78", result);
         }
 
         [TestMethod]
@@ -75,10 +75,10 @@ namespace CalulatorChallengeUnittest
             string input = "5,tytyt";
 
             // Act
-            int result = Calculator.Add(input);
+            string result = Calculator.Add(input);
 
             // Assert
-            Assert.AreEqual(5, result);
+            Assert.AreEqual("5 + 0 = 5", result);
         }
 
         [TestMethod]
@@ -88,10 +88,10 @@ namespace CalulatorChallengeUnittest
             string input = "5,1001,4";
 
             // Act
-            int result = Calculator.Add(input);
+            string result = Calculator.Add(input);
 
             // Assert
-            Assert.AreEqual(9, result);
+            Assert.AreEqual("5 + 0 + 4 = 9", result);
         }
 
         [TestMethod]
@@ -101,10 +101,10 @@ namespace CalulatorChallengeUnittest
             string input = "//#\n2#5";
 
             // Act
-            int result = Calculator.Add(input);
+            string result = Calculator.Add(input);
 
             // Assert
-            Assert.AreEqual(7, result);
+            Assert.AreEqual("2 + 5 = 7", result);
         }
 
         [TestMethod]
@@ -114,10 +114,10 @@ namespace CalulatorChallengeUnittest
             string input = "//[***]\n11***22***33";
 
             // Act
-            int result = Calculator.Add(input);
+            string result = Calculator.Add(input);
 
             // Assert
-            Assert.AreEqual(66, result);
+            Assert.AreEqual("11 + 22 + 33 = 66", result);
         }
 
         [TestMethod]
@@ -127,10 +127,10 @@ namespace CalulatorChallengeUnittest
             string input = "//[*][!!][r9r]\n11r9r22*hh*33!!44";
 
             // Act
-            int result = Calculator.Add(input);
+            string result = Calculator.Add(input);
 
             // Assert
-            Assert.AreEqual(110, result);
+            Assert.AreEqual("11 + 22 + 0 + 33 + 44 = 110", result);
         }
 
     }
