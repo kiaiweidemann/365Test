@@ -109,16 +109,21 @@ namespace CalculatorTest
     {
         static void Main(string[] args)
         {
-            try
+            Console.WriteLine("Enter numbers separated by delimiters, Press Ctrl+C to exit.");
+
+            while (true)
             {
-                Console.WriteLine("Enter numbers separated by commas:");
-                string input = Console.ReadLine();
-                string result = Calculator.Add(input);
-                Console.WriteLine("Result: " + result);
-            }
-            catch (ArgumentException ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
+                try
+                {
+                    Console.WriteLine("Enter input:");
+                    string input = Console.ReadLine();
+                    string result = Calculator.Add(input);
+                    Console.WriteLine("Result: " + result);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
             }
         }
     }
